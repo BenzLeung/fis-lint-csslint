@@ -13,3 +13,17 @@ results
 
 npm-debug.log
 node_modules
+
+.idea
+.settings
+.project
+
+.DS_Store
+
+*.db
+*.bak
+*.tmp
+*.cmd
+~*
+
+upload.py
