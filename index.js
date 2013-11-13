@@ -19,14 +19,20 @@ var CSSLint = require('./node_modules/csslint/lib/csslint-node.js').CSSLint;
 
         if (warnings){
             ruleset = ruleset || {};
-            warnings.split(",").forEach(function(value){
+            if (typeof warnings === 'string') {
+                warnings = warnings.split(",");
+            }
+            warnings.forEach(function(value){
                 ruleset[value] = 1;
             });
         }
 
         if (errors){
             ruleset = ruleset || {};
-            errors.split(",").forEach(function(value){
+            if (typeof errors === 'string') {
+                errors = errors.split(",");
+            }
+            errors.forEach(function(value){
                 ruleset[value] = 2;
             });
         }
@@ -44,7 +50,10 @@ var CSSLint = require('./node_modules/csslint/lib/csslint-node.js').CSSLint;
             ruleset = CSSLint.getRuleset();
 
         if (ignore) {
-            ignore.split(",").forEach(function(value){
+            if (typeof ignore === 'string') {
+                ignore = ignore.split(",");
+            }
+            ignore.forEach(function(value){
                 ruleset[value] = 0;
             });
         }
