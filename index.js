@@ -103,3 +103,11 @@ var CSSLint = require('csslint').CSSLint;
         });
 
     };
+
+    module.exports.defaultOptions = {
+        ignore : [
+            'underscore-property-hack',
+            'star-property-hack',
+            'unique-headings'
+        ]
+    };
