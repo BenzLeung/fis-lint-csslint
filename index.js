@@ -3,9 +3,7 @@
  * http://fis.baidu.com/
  */
 
-var CSSLint = require('./node_modules/csslint/lib/csslint-node.js').CSSLint;
-
-(function (fis) {
+var CSSLint = require('csslint').CSSLint;
 
     /**
      * Returns a ruleset object based on the CLI options.
@@ -90,14 +88,18 @@ var CSSLint = require('./node_modules/csslint/lib/csslint-node.js').CSSLint;
         var messages = result.messages;
 
         CSSLint.Util.forEach(messages, function (msg) {
-            var output;
-            if (msg.rollup) {
-                output = 'csslint : ' + '[' + msg.type.toUpperCase() + '] ' + msg.message + ' [' + file.subpath + ']';
-            } else {
-                output = 'csslint : ' + '[' + msg.type.toUpperCase() + '] ' + msg.message + ' [' + file.subpath + ':' + msg.line + ':' + msg.col + ']';
+            switch(msg.type){
+                case 'error':
+                    fis.log.error(msg.message);
+                    break;
+                default :
+                    var path = file.subpath;
+                    if(!msg.rollup){
+                        path += ':' + msg.line + ':' + msg.col;
+                    }
+                    fis.log.warning(msg.message + ' [' + path + ']');
+                    break;
             }
-            fis.log.warning(output);
         });
 
     };
-})(fis);
